@@ -1,0 +1,70 @@
+Time Series Forecasting: Top 100 US Markets
+========================================================
+
+Federico Navarro
+
+`r date()`
+
+
+Revenue Management in the Airline Industry
+========================================================
+
+The Airline Industry is a volatile industry with dynamic changes every year. Every airline struggles yearly to overcome the very high fixed costs. For that, the airlines have implemented Revenue Management Theories. 
+
+The main idea of Revenue Management is well explained by Robert Crandall, CEO of American Airlines in the 1980s:
+
+"Sell the right seats to the right customer at the right price at the right time"
+
+
+
+Forecasting in the Airline Industry
+========================================================
+
+One of the most important tasks in Revenue Management is forecasting. Increasing forecast accuracy allows Revenue Managers to maximize revenues. 
+
+This shiny apps is an interactive web tool that uses Exponential Smoothing and ARIMA Models to forecast passenger demand by month for the top 100 Round Trip in the US Domestic Markets. 
+The data can be downloaded for free from the Deparment of Transportation in the following URL: 
+
+"http://www.transtats.bts.gov/DL_SelectFields.asp?Table_ID=259&DB_Short_Name=Air Carriers"
+
+
+App Widgets 
+========================================================
+
+In the UI, the first thing Users need to do is to determine three things: 
+
+- Market to forecast
+- Method to use: Exponential Smoothing or Arima
+- How many periods to forecast: from 1 to 12
+
+The App has 4 tabs: 
+
+- The Historical Series
+- The Seasonal Plot
+- Forecasting Results
+- Used Data
+
+
+The Main App 
+========================================================
+
+```{r,echo=FALSE}
+
+
+library(forecast)
+
+inp <- read.table("DemandInput.csv",header=T,sep=";")
+inp$YYMM <- as.Date(paste(inp$YY,inp$MM,"1",sep="-"))
+dat <- subset(inp, inp$OD=="LAXSFO")
+dat1 <- subset(dat,YY>2011)
+myts <- ts(dat$PAX, start=c(2008, 1), end=c(2014, 7), frequency=12)
+par(bg="beige")
+fit <- auto.arima(myts)
+h <- 6
+pred <- forecast(fit,h)
+out <- as.numeric(as.matrix(pred$mean))
+met <- "ARIMA"
+title <- paste("Predictions using",met,sep=" ")
+plot.forecast(pred,col="darkred",main=title,xlab="Year",ylab="Passengers",lwd=2.5,frame=F,tck=0)
+
+```

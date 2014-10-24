@@ -1,0 +1,42 @@
+---
+title: "Top US Markets"
+author: "Federico Navarro"
+date: "Thursday, October 23, 2014"
+output: html_document
+---
+
+###App Summary
+
+This app was built as a Course Project for Developing Data Products from the Coursera Data Science Specialization. The main objective of the app is to forecast a "user selected" amount of periods for passenger travel in a specific market in the US. 
+
+The app functions with the following user inputs: 
+
+1- Air Traffic Market (Round Trip Market)
+2- The forecasting Method. The user can choose between ARIMA or Exponential Smoothing
+3- The number of periods to forecast (Months). The options are from 1 month to a year. 
+
+###Internal Packages
+
+The Shiny App uses the following packages: 
+
+1- Forecast Package
+2- Ggplot2
+3- Shiny
+
+The ARIMA and Exponential Smoothing are calculated through the auto.arima() and ets() functions from the forecast package. The 80 and 95 confidence intervals are also predicted. 
+
+###App Layout
+
+The first tab "Historical Plot" shows the historical plot of the Time Series. The data was loaded from 2008 till July 2014. 
+
+The second tab "Seasonal Plot" divides the series by year. This allows the user to interpret low and high season months and to analyze how "comparable" the series is to previous years. 
+
+The next tab "Forecast Predictions" shows a plot with the result of the prediction for the selected model. 
+
+The final tab shows the data used for the chosen market 
+
+###Github link
+
+The code for the app can be found in the following github repository: 
+
+https://github.com/fedenp/DevelopingDataProducts
